@@ -2,8 +2,9 @@
 
 export default class Form {
   constructor(parent) {
+    this.el = this.render();
     this.parent = parent;
-    this.parent.append(this.render());
+    this.parent.append(this.el);
   }
 
   render() {
@@ -16,10 +17,22 @@ export default class Form {
       </div>
     `;
 
+    this.input = form.querySelector('input.form-control');
+
     return form;
   }
 
-  submit() {
+  set onsubmit(handler) {
+    this.el.onsubmit = (e) => {
+      e.preventDefault();
+      const inputValue = this.input.value.trim();
 
+      if (inputValue) {
+        handler(inputValue);
+        this.el.reset();
+      }
+    }
   }
+
+
 }
