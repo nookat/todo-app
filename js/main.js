@@ -37,6 +37,7 @@ console.log(tasks);
 // Handlers
 form.onsubmit = addTask;
 todoList.ondelete = removeTask;
+todoList.ontoggle = toggleTask;
 
 function addTask(str) {
   const task = new Task(str);
@@ -50,5 +51,12 @@ function removeTask(id) {
   if (index < 0) return;
   tasks.splice(index, 1);
   todoList.remove(id);
+}
+
+function toggleTask(id) {
+  const index = tasks.findIndex(task => task.id === id);
+
+  if (index < 0) return;
+  todoList.toggle(id);
 }
 
